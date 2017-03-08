@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <form-table></form-table>
     <Card :dis-hover="true">
       <p slot="title">
         <Breadcrumb>
@@ -10,9 +11,16 @@
       <div class="readable-table">
         <Row class="row">
           <i-col span="3" class="item label"><span style="color:red">*</span> 姓名</i-col>
-          <i-col span="5" class="item">col-12</i-col>
+          <i-col span="5" class="item"><i-select :model.sync="model1">
+            <i-option v-for="item in cityList" :value="item.value">{{ item.label }}</i-option>
+            <div>
+              <Page :total="400" size="small" simple></Page>
+            </div>
+          </i-select></i-col>
           <i-col span="3" class="item label"><span style="color:red">*</span> 性别</i-col>
-          <i-col span="5" class="item">col-12</i-col>
+          <i-col span="5" class="item">
+            <sync-select url="/wec-devops-tenant/tenantApp/getAppListByTenant" display-member="appName" value-member="appId" :page-size="4" :value="value" :value-display="valueDisplay" :params="params"></sync-select>
+          </i-col>
           <i-col span="3" class="item label"><span style="color:red">*</span> 民族</i-col>
           <i-col span="5" class="item">col-12</i-col>
         </Row>
@@ -82,7 +90,44 @@
 </template>
 <script>
   export default {
+    data:function () {
+      return {
 
+          value:'1001000010016',
+          valueDisplay:'快看漫画',
+        params:{
+          "schoolId": "1018447439697840",
+          "appStatus": "",
+          "endTimeFrom": null,
+          "endTimeTo": null
+        },
+          cityList: [
+        {
+          value: 'beijing',
+          label: '北京市'
+        },
+        {
+          value: 'shanghai',
+          label: '上海市'
+        },
+        {
+          value: 'shenzhen',
+          label: '深圳市'
+        },
+        {
+          value: 'hangzhou',
+          label: '杭州市'
+        },
+        {
+          value: 'nanjing',
+          label: '南京市'
+        },
+        {
+          value: 'chongqing',
+          label: '重庆市'
+        }
+      ]}
+    }
   }
 </script>
 <style scoped>
